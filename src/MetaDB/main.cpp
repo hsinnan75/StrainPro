@@ -7,7 +7,7 @@ int iThreadNum;
 string OutputFolder;
 vector<SeqInfo_t> SeqVec;
 string ReferenceFilename;
-string MetaNR_Path = "./StrainPro-nr";
+string MetaNR_Path = "./StrainPro-rep";
 int64_t TotalSeqSize = 0, NRS_Size = 0;
 string NodesDumpFilePath = "database/nodes.dmp";
 string MergedDumpFilePath = "database/merged.dmp";
