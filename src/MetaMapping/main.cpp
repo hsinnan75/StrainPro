@@ -18,7 +18,7 @@ int iThreadNum, iRefSeqNum, MaxMismatchNum, minFrequency, minDepth;
 void ShowProgramUsage(const char* program)
 {
 	fprintf(stderr, "\n");
-	fprintf(stderr, "program v%s\n", program, VersionStr);
+	fprintf(stderr, "%s v%s\n", program, VersionStr);
 	fprintf(stderr, "Usage: %s -i Index_Prefix -f <ReadFile_1 ReadFile_2 ...> -o OutputPrefix\n\n", program);
 	fprintf(stderr, "Options: IndexPrefix can be either an index prefix or a directory of multiple indexes\n");
 	fprintf(stderr, "         -t     INT     number of threads [%d]\n", iThreadNum);
