@@ -12,7 +12,7 @@ OBJECT		= $(SOURCE:%.cpp=%.o)
 all:		main
 
 main:		$(OBJECT)
-			$(Compiler) $(FLAGS) $(OBJECT) -o MetaNR $(LIB)
+			$(Compiler) $(FLAGS) $(OBJECT) -o StrainPro-nr $(LIB)
 
 %.o:		%.cpp $(HEADER)
 			$(Compiler) $(FLAGS) -c $<
