@@ -1,6 +1,6 @@
 #include "structure.h"
 
-vector<string> NRDB_vec;
+vector<string> RepDB_vec;
 static pthread_mutex_t Lock;
 static int ClusterSize, ClusterID;
 
@@ -12,7 +12,7 @@ void Make_nrDB()
 	for (vector<pair<string, int64_t> >::iterator iter = ClusterSeqPathVec.begin(); iter != ClusterSeqPathVec.end(); iter++)
 	{
 		IdxPrefix = iter->first.substr(0, iter->first.find_last_of('.'));
-		output_fn = IdxPrefix + ".nrs"; NRDB_vec.push_back(output_fn);
+		output_fn = IdxPrefix + ".rep"; RepDB_vec.push_back(output_fn);
 
 		sprintf(cmd, "%s -i %s -t %d -o %s", MetaNR_Path.c_str(), IdxPrefix.c_str(), iThreadNum, output_fn.c_str());
 		fprintf(stderr, "cmd=%s\n", cmd); system(cmd);
@@ -28,7 +28,7 @@ int64_t Load_All_NRS()
 	string str, header, tax;
 
 	fprintf(stderr, "Get all representative sequence segments...\n"); taxid = 0; total_n = 0;
-	for (vector<string>::iterator iter = NRDB_vec.begin(); iter != NRDB_vec.end(); iter++)
+	for (vector<string>::iterator iter = RepDB_vec.begin(); iter != RepDB_vec.end(); iter++)
 	{
 		file.clear(); file.open(iter->c_str(), ios_base::in);
 		while (!file.eof())
