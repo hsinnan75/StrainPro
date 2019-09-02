@@ -47,7 +47,9 @@ You may specify a specific index or a folder of multiple indexes. A specific ind
 
 # Output format
 StrainPro ouputs the taxonomic composition of the input metagenomic data directly. The output format is
+  ```
 TaxID  Read_count  Est_depth   Est_relative_abundance   Confidence_score
+  ```
 where TaxID is the NCBI taxon identifier; Read_count is the number of reads that are classified into that taxon id; Est_depth is the estimated read depth of that taxon id; Est_relative_abundance is the estimated relative abundance (percentage); Confidence_score is the confidence score of that prediction.
 
 
