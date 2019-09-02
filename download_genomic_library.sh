@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Copyright 2013-2018, Derrick Wood <dwood@cs.jhu.edu>
-#
 # Download specific genomic libraries.
+# Modified by Hsin-Nan Lin <arith@iis.sinica.edu.tw>
 
 set -u  # Protect against uninitialized vars.
 set -e  # Stop on error
@@ -17,7 +17,7 @@ ftp_subdir=$library_name
 library_file="library.fna"
 
 case $library_name in
-  "archaea" | "bacteria" | "viral" | "fungi" | "human" | "protozoa")
+  "archaea" | "bacteria" | "viral" | "fungi" | "human")
     mkdir -p $LIBRARY_DIR/$library_name
     cd $LIBRARY_DIR/$library_name
     rm -f assembly_summary.txt
