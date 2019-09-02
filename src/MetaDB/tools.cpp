@@ -76,7 +76,7 @@ void RemoveSeqFiles()
 	while ((ds = readdir(dir)) != NULL)
 	{
 		filename = ds->d_name; p = filename.find_last_of('.'); filetype = filename.substr(p + 1);
-		if (filetype == "fna" || filetype == "nrs")
+		if (filetype == "nrs" || filetype == "clr1" || filetype == "clr2")
 		{
 			sprintf(cmd, "rm %s/%s", OutputFolder.c_str(), ds->d_name); system(cmd);
 		}
