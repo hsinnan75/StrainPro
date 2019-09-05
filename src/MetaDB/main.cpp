@@ -9,8 +9,8 @@ vector<SeqInfo_t> SeqVec;
 string ReferenceFilename;
 string MetaNR_Path = "./StrainPro-rep";
 int64_t TotalSeqSize = 0, NRS_Size = 0;
-string NodesDumpFilePath = "database/nodes.dmp";
-string MergedDumpFilePath = "database/merged.dmp";
+string NodesDumpFilePath = "taxonomy/nodes.dmp";
+string MergedDumpFilePath = "taxonomy/merged.dmp";
 
 void ShowProgramUsage(const char* program)
 {

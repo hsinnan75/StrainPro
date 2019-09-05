@@ -9,8 +9,8 @@ int iThreadNum;
 bwaidx_t *RefIdx;
 int64_t RefSeqSize, DoubleRefSeqSize;
 char *RefSequence, *IndexPrefix, *OutputFASTA;
-string NodesDumpFilePath = "database/nodes.dmp";
-string MergedDumpFilePath = "database/merged.dmp";
+string NodesDumpFilePath = "taxonomy/nodes.dmp";
+string MergedDumpFilePath = "taxonomy/merged.dmp";
 
 void ShowProgramUsage(const char* program)
 {

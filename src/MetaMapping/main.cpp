@@ -11,8 +11,8 @@ bool bDebugMode, bFastMode;
 vector<string> IndexPrefixVec;
 map<int64_t, int> RefSeqLocMap;
 char *IndexFileName, *OutputFilename;
-string NodesDumpFilePath = "database/nodes.dmp";
-string MergedDumpFilePath = "database/merged.dmp";
+string NodesDumpFilePath = "taxonomy/nodes.dmp";
+string MergedDumpFilePath = "taxonomy/merged.dmp";
 int iThreadNum, iRefSeqNum, MaxMismatchNum, minFrequency, minDepth;
 
 void ShowProgramUsage(const char* program)
