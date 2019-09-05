@@ -376,7 +376,7 @@ BWTInc *BWTIncCreate(const bgint_t textLength, unsigned int initialMaxBuildSize,
 		+ OCC_INTERVAL / BIT_PER_CHAR * n_iter * 2 * (sizeof(bgint_t) / 4) // buffer at the end of occ array 
 		+ incMaxBuildSize/5 * 3 * (sizeof(bgint_t) / 4); // space for the 3 temporary arrays in each iteration
 	if (bwtInc->availableWord < MIN_AVAILABLE_WORD) bwtInc->availableWord = MIN_AVAILABLE_WORD; // lh3: otherwise segfaul when availableWord is too small
-	fprintf(stderr, "[%s] textLength=%ld, availableWord=%ld\n", __func__, (long)textLength, (long)bwtInc->availableWord);
+	//fprintf(stderr, "[%s] textLength=%ld, availableWord=%ld\n", __func__, (long)textLength, (long)bwtInc->availableWord);
 	bwtInc->workingMemory = (unsigned*)calloc(bwtInc->availableWord, BYTES_IN_WORD);
 
 	return bwtInc;
@@ -1533,10 +1533,10 @@ BWTInc *BWTIncConstructFromPacked(const char *inputFileName, bgint_t initialMaxB
 		ConvertBytePackedToWordPacked(bwtInc->textBuffer, bwtInc->packedText, ALPHABET_SIZE, textToLoad);
 		BWTIncConstruct(bwtInc, textToLoad);
 		processedTextLength += textToLoad;
-		if (bwtInc->numberOfIterationDone % 10 == 0) {
-			fprintf(stderr, "[BWTIncConstructFromPacked] %lu iterations done. %lu characters processed.\n",
-					(long)bwtInc->numberOfIterationDone, (long)processedTextLength);
-		}
+		//if (bwtInc->numberOfIterationDone % 10 == 0) {
+		//	fprintf(stderr, "[BWTIncConstructFromPacked] %lu iterations done. %lu characters processed.\n",
+		//			(long)bwtInc->numberOfIterationDone, (long)processedTextLength);
+		//}
 	}
 	return bwtInc;
 }
@@ -1602,7 +1602,7 @@ void bwt_bwtgen2(const char *fn_pac, const char *fn_bwt, int block_size)
 {
 	BWTInc *bwtInc;
 	bwtInc = BWTIncConstructFromPacked(fn_pac, block_size, block_size);
-	printf("[bwt_gen] Finished constructing BWT in %u iterations.\n", bwtInc->numberOfIterationDone);
+	//printf("[bwt_gen] Finished constructing BWT in %u iterations.\n", bwtInc->numberOfIterationDone);
 	BWTSaveBwtCodeAndOcc(bwtInc->bwt, fn_bwt, 0);
 	BWTIncFree(bwtInc);
 }

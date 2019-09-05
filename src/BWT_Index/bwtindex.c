@@ -92,7 +92,7 @@ int bwa_idx_build(const char *fa, const char *prefix) //**//
 		t = clock();
 		//fprintf(stderr, "[bwt_index] Pack FASTA... ");
 		l_pac = bns_fasta2bntseq(fp, prefix, 0);
-		fprintf(stderr, "%.2f sec\n", (float)(clock() - t) / CLOCKS_PER_SEC);
+		//fprintf(stderr, "%.2f sec\n", (float)(clock() - t) / CLOCKS_PER_SEC);
 		err_gzclose(fp);
 	}
 	//if (algo_type == 0) algo_type = l_pac > 50000000? 2 : 3; // set the algorithm for generating BWT

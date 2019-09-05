@@ -169,7 +169,7 @@ int main(int argc, char* argv[])
 	//removing temporary files
 	RemoveSeqFiles();
 
-	fprintf(stderr, "Original db_size = %lld, non_redundant db_size = %lld\n", TotalSeqSize, NRS_Size);
+	fprintf(stderr, "Original db_size = %lld, representative sequence db_size = %lld\n", TotalSeqSize, NRS_Size);
 	fprintf(stderr, "Done! It took %lld seconds. (MemUsage: %d MB)\n\n", (long long)(time(NULL) - StartProcessTime), CheckMemoryUsage());
 
 	return 0;
