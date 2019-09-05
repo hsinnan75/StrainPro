@@ -18,7 +18,12 @@ To compile StrainPro, it requires libboost-all-dev, libbz2-dev, and liblzma-dev 
 # Compiling
 Please change to StrainPro's folder and type 'make' to compile all programs of StrainPro.
 
-# Reference genomes
+# Taxonomy & Reference genomes
+To download taxonomy information, please use the script "download_taxonomy.sh" to download taxonomy files. (requisite for StrainPro)
+  ```
+  $./download_taxonomy.sh
+  ```
+
 To download reference genomes, please use the script "download_genomic_library.sh" to download reference genomes.
   ```
   $./download_genomic_library.sh library (library: archaea | bacteria | viral | fungi | human)
@@ -51,6 +56,4 @@ StrainPro ouputs the taxonomic composition of the input metagenomic data directl
 TaxID  Read_count  Est_depth   Est_relative_abundance   Confidence_score
   ```
 where TaxID is the NCBI taxon identifier; Read_count is the number of reads that are classified into that taxon id; Est_depth is the estimated read depth of that taxon id; Est_relative_abundance is the estimated relative abundance (percentage); Confidence_score is the confidence score of that prediction.
-
-
 
