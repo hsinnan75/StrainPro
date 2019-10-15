@@ -42,14 +42,14 @@ If you would like to use a customized reference library, please make sure your r
 # Database
 To build a database, please use the StrainPro-build command
   ```
-  $./StrainPro-build -r reference-fna -o ref_idx [ref_idx is the output folder for BWT indexes].
+  $bin/StrainPro-build -r reference-fna -o ref_idx [ref_idx is the output folder for BWT indexes].
   ```
 It will take a while to process the genome sequences and build BWT indexes.
 
 # Mapping & Profiling
 To characterize the taxonomic composition of the input metagenomic data, please use the StrainPro-map command
   ```
-  $./StrainPro-map -i idx -f read -o profile.txt [idx=BWT_index prefix / folder of BWT_indexes, read=NGS_dataset]
+  $bin/StrainPro-map -i idx -f read -o profile.txt [idx=BWT_index prefix / folder of BWT_indexes, read=NGS_dataset]
   ```
 You may specify a specific index or a folder of multiple indexes. A specific index is designated with its prefix. The input NGS data is in FASTQ or FASTA format. Multiple files are separated with a space character. The output is a text file.
 
