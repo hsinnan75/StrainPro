@@ -53,7 +53,7 @@ vector<FragPair_t> IdentifySimplePairs(int rlen, char* seq)
 	FragPair.bSimple = true; pos = 0;
 	while (pos < rlen)
 	{
-		if (nst_nt4_table[seq[pos]] > 3) pos++;
+		if (nst_nt4_table[(uint8_t)seq[pos]] > 3) pos++;
 		else
 		{
 			bwtSearchResult = BWT_Search(seq, pos, rlen);
@@ -130,10 +130,8 @@ void RemoveRedundantAlnCan(vector<AlnCan_t>& AlnCanVec)
 void UpdateMappingInfo(int64_t rid_base, int ReadNum, ReadItem_t* ReadArr)
 {
 	int64_t rid;
-	int64_t gPos;
-	int i, best_idx, iRef;
 
-	for (i = 0; i != ReadNum; i++)
+	for (int i = 0; i != ReadNum; i++)
 	{
 		if (ReadArr[i].AlnSummary.score == 0) continue;
 
@@ -154,9 +152,9 @@ void UpdateMappingInfo(int64_t rid_base, int ReadNum, ReadItem_t* ReadArr)
 
 void *ReadMapping(void *arg)
 {
-	int i, ReadNum, MappedNum;
+	int i, ReadNum;
+	int64_t rid_base;
 	ReadItem_t* ReadArr = NULL;
-	int64_t map_num = 0, rid_base;
 	vector<FragPair_t> SimplePairVec;
 	map<int64_t, int>::iterator RefIter;
 

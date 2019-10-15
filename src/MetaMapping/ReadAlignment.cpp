@@ -1,6 +1,6 @@
 #include "structure.h"
 
-static pthread_mutex_t Lock;
+//static pthread_mutex_t Lock;
 
 float CalFragAlnSeqIdy(string& aln1, string& aln2)
 {
@@ -118,7 +118,7 @@ void RemoveEmptyFragPairs(vector<FragPair_t>& FragPairVec)
 bool CheckAlnCanCoverage(int rlen, vector<FragPair_t>& FragPairVec)
 {
 	bool bChecked = true;
-	int i, TotalCovLength = 0;
+	int TotalCovLength = 0;
 
 	for (vector<FragPair_t>::iterator iter = FragPairVec.begin(); iter != FragPairVec.end(); iter++)
 	{
@@ -155,7 +155,7 @@ void ProcessNormalPair(char* seq, FragPair_t& fp)
 {
 	if (fp.rLen > 0 && fp.gLen > 0)
 	{
-		int i, mismatch = 0;
+		int mismatch = 0;
 
 		fp.aln1.resize(fp.rLen); strncpy((char*)fp.aln1.c_str(), seq + fp.rPos, fp.rLen);
 		fp.aln2.resize(fp.gLen); strncpy((char*)fp.aln2.c_str(), RefSequence + fp.gPos, fp.gLen);
@@ -193,7 +193,7 @@ int CheckAlignmentBounary(vector<FragPair_t>& FragPairVec)
 bool ProduceReadAlignment(ReadItem_t& read)
 {
 	vector<AlnCan_t>::iterator iter;
-	int i, j, n, thr, len, ref_idx, seqid, FragPairNum;
+	int i, thr, ref_idx, FragPairNum;
 
 	read.AlnSummary.score = read.AlnSummary.taxid = 0;
 	thr = read.rlen - MaxMismatchNum;

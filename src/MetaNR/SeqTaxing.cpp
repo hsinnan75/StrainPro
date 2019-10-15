@@ -47,7 +47,7 @@ void *PseudoReadMapping(void *arg)
 		pthread_mutex_lock(&MutexLock);
 		start_pos = cur_Ref_gPos; stop_pos = (cur_Ref_gPos += JobBlockSize);
 		if (stop_pos > RefSeqSize) stop_pos = cur_Ref_gPos = RefSeqSize;
-		fprintf(stderr, "\33[2K\r\tScan %lld nucleobases (%d%%)...", start_pos, (int)(100 * (1.0*start_pos / RefSeqSize)));
+		fprintf(stderr, "\33[2K\r\tScan %lld nucleobases (%d%%)...", (long long)start_pos, (int)(100 * (1.0*start_pos / RefSeqSize)));
 		pthread_mutex_unlock(&MutexLock);
 
 		if (start_pos == RefSeqSize) break;
@@ -63,7 +63,7 @@ void OutputAnnotatedSequences()
 {
 	int64_t gPos;
 	FILE *out_file;
-	int sid, n, frag_len, taxid;
+	int n, frag_len, taxid;
 
 	out_file = fopen(OutputFASTA, "w");
 	for (taxid = 0, n = 0, gPos = 0; gPos < RefSeqSize; gPos++)

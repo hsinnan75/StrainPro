@@ -48,20 +48,20 @@ void NR_Analysis()
 		filename = ds->d_name; p = filename.find_last_of('.');
 		if (filename.substr(p + 1) == "fna")
 		{
-			fopen(ds->d_name, "r"); fseek(fp, 0, SEEK_END);
+			fp = fopen(ds->d_name, "r"); fseek(fp, 0, SEEK_END);
 			ori_size += ftell(fp);
 			fclose(fp);
 		}
 		else if (filename.substr(p + 1) == "nrs")
 		{
-			fopen(ds->d_name, "r"); fseek(fp, 0, SEEK_END);
+			fp = fopen(ds->d_name, "r"); fseek(fp, 0, SEEK_END);
 			nr_size += ftell(fp);
 			fclose(fp);
 		}
 	}
 	closedir(dir);
 
-	printf("Ori_Size=%lld, NR_Size=%lld (%.4f)\n", ori_size, nr_size, 1.0*nr_size / ori_size);
+	printf("Ori_Size=%lld, NR_Size=%lld (%.4f)\n", (long long)ori_size, (long long)nr_size, (1.0*nr_size / ori_size));
 }
 
 void RemoveSeqFiles()
@@ -76,7 +76,7 @@ void RemoveSeqFiles()
 	while ((ds = readdir(dir)) != NULL)
 	{
 		filename = ds->d_name; p = filename.find_last_of('.'); filetype = filename.substr(p + 1);
-		if (filetype == "nrs" || filetype == "clr1" || filetype == "clr2")
+		if (filetype == "rep" || filetype == "clr1" || filetype == "clr2")
 		{
 			sprintf(cmd, "rm %s/%s", OutputFolder.c_str(), ds->d_name); system(cmd);
 		}

@@ -96,7 +96,7 @@ ReadItem_t GetNextEntry(FILE *file)
 
 int GetNextChunk(FILE *file, ReadItem_t* ReadArr)
 {
-	int i, iCount = 0;
+	int iCount = 0;
 
 	while (true)
 	{
@@ -108,7 +108,6 @@ int GetNextChunk(FILE *file, ReadItem_t* ReadArr)
 
 ReadItem_t gzGetNextEntry(gzFile file)
 {
-	int len;
 	ReadItem_t read;
 	char buffer[BufferSize];
 
@@ -136,7 +135,7 @@ ReadItem_t gzGetNextEntry(gzFile file)
 
 int gzGetNextChunk(gzFile file, ReadItem_t* ReadArr)
 {
-	int i, iCount = 0;
+	int iCount = 0;
 
 	while (true)
 	{
@@ -145,35 +144,3 @@ int gzGetNextChunk(gzFile file, ReadItem_t* ReadArr)
 	}
 	return iCount;
 }
-
-//int ConvertReadLibrary(char* ReadLibraryFileName)
-//{
-//	ReadItem_t read;
-//	gzFile in_gzfile;
-//	FILE *in_file, *rf;
-//	int64_t total_num = 0;
-//
-//	rf = fopen(ReadLibraryFileName, "w");
-//	for (int LibraryID = 0; LibraryID < (int)ReadLibraryVec.size(); LibraryID++)
-//	{
-//		if (ReadLibraryVec[LibraryID].substr(ReadLibraryVec[LibraryID].find_last_of('.') + 1) == "gz") gzCompressed = true;
-//		else gzCompressed = false;
-//
-//		FastQFormat = CheckReadFormat(ReadLibraryVec[LibraryID].c_str());
-//		if (gzCompressed)
-//		{
-//			in_gzfile = gzopen(ReadLibraryVec[LibraryID].c_str(), "rb");
-//			while ((read = gzGetNextEntry(in_gzfile)).rlen != 0) total_num++, fprintf(rf, ">%s\n%s\n", read.header + 1, read.seq);
-//			gzclose(in_gzfile);
-//		}
-//		else
-//		{
-//			in_file = fopen(ReadLibraryVec[LibraryID].c_str(), "r");
-//			while((read = GetNextEntry(in_file)).rlen != 0) total_num++, fprintf(rf, ">%s\n%s\n", read.header + 1, read.seq);
-//			fclose(in_file);
-//		}
-//	}
-//	fclose(rf);
-//
-//	return total_num;
-//}

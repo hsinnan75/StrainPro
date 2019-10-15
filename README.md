@@ -19,10 +19,10 @@ To compile StrainPro, it requires libboost-all-dev, libbz2-dev, and liblzma-dev 
 Please change to StrainPro's folder and type 'make' to compile all programs of StrainPro.
 
 # Testing
-Please run "run_test.sh" to test StrainPro
+Please run "run_test.sh" to test StrainPro.
 
 # Taxonomy & Reference genomes
-To download taxonomy information, please use the script "download_taxonomy.sh" to download taxonomy files. (requisite for StrainPro)
+To download taxonomy information, please use the script "download_taxonomy.sh" to download taxonomy files (requisite for StrainPro).
   ```
   $./download_taxonomy.sh
   ```

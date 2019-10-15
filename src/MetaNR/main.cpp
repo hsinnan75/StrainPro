@@ -49,7 +49,6 @@ bool CheckBWAIndexFiles()
 int main(int argc, char* argv[])
 {
 	int i;
-	struct stat fs;
 	string parameter, str;
 
 	iThreadNum = 16;

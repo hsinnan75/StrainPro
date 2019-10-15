@@ -12,9 +12,9 @@ map<int, TaxMappedInfo_t> TaxMappedInfoMap;
 void EstTaxDepth()
 {
 	int64_t rid;
+	int taxid, size;
 	map<int, int> RefIdxFreqMap; //first=ref_idx, second=frequency
 	map<int, int>::iterator iter;
-	int i, ref_idx, taxid, size, thr;
 
 	fprintf(stderr, "Get reference seqeunce's taxnomic information\n");
 	for (IndexID = 0; IndexID < IndexNum; IndexID++)
@@ -49,6 +49,8 @@ int FindNextLevelTaxID(int taxid, int TaxLevel)
 	if ((iter = TaxMap.find(taxid)) == TaxMap.end()) return 1;
 	else parentid = TaxMap[taxid].parent_taxid;
 
+	target_taxLevel = TaxLevel;
+
 	if (TaxLevel == 70) return 1;
 	else if (TaxLevel % 10 == 5) target_taxLevel += 5;
 	else target_taxLevel += 10;
@@ -82,9 +84,8 @@ void CreateMappingReport()
 {
 	float conf, abundance;
 	FILE *OutputFileHandler;
-	char OutputFileName[256];
+	int taxid, freq, size, depth, taxLevel;
 	map<int, TaxMappedInfo_t>::iterator iter;
-	int taxid, parentid, freq, size, depth, taxLevel;
 
 	OutputFileHandler = fopen(OutputFilename, "w");
 	fprintf(OutputFileHandler, "%-20s\t%-20s\t%-20s\t%-20s\t%-20s\n", "#TaxID", "#Read_count", "#Depth", "#Relative_abundance", "#Confidence_score");

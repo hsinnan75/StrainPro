@@ -1,8 +1,7 @@
 #include "structure.h"
 
 vector<string> RepDB_vec;
-static pthread_mutex_t Lock;
-static int ClusterSize, ClusterID;
+//static pthread_mutex_t Lock;
 
 void Make_nrDB()
 {

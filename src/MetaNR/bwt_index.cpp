@@ -229,14 +229,11 @@ void RestoreReferenceSequences()
 
 void RestoreReferenceInfo()
 {
-	int i;
-	int64_t gPos, iTotalLength = 0;
-
 	RefSeqSize = RefIdx->bns->l_pac; DoubleRefSeqSize = (RefSeqSize << 1);
 
 	fprintf(stderr, "Step3. Load the %d reference sequences.", RefIdx->bns->n_seqs);
 	fseek(RefIdx->bns->fp_pac, 0, SEEK_SET);
-	size_t ret = fread(RefIdx->pac, 1, RefSeqSize / 4 + 1, RefIdx->bns->fp_pac);
+	fread(RefIdx->pac, 1, RefSeqSize / 4 + 1, RefIdx->bns->fp_pac);
 	RefSequence = new char[RefSeqSize + 1]; RefSequence[RefSeqSize] = '\0';
 	RestoreReferenceSequences();
 

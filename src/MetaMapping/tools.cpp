@@ -2,87 +2,6 @@
 #include <sys/stat.h>
 #include "structure.h"
 
-//const char ReverseMap[255] =
-//{
-//	'\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', /*   0 -   9 */
-//	'\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', /*  10 -  19 */
-//	'\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', /*  20 -  29 */
-//	'\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', /*  30 -  39 */
-//	'\0', '\0', '\0', '\0', '\0', '-', '\0', '\0', '\0', '\0', /*  40 -  49 */
-//	'\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', /*  50 -  59 */
-//	'\0', '\0', '\0', '\0', '\0',  'T', '\0',  'G', '\0', '\0', /*  60 -  69 */
-//	'\0',  'C', '\0', '\0', '\0', '\0', '\0', '\0',  'N', '\0', /*  70 -  79 */
-//	'\0', '\0', '\0', '\0',  'A',  'A', '\0', '\0', '\0', '\0', /*  80 -  89 */
-//	'\0', '\0', '\0', '\0', '\0', '\0', '\0',  'T', '\0',  'G', /*  90 -  99 */
-//	'\0', '\0', '\0',  'C', '\0', '\0', '\0', '\0', '\0', '\0', /* 100 - 109 */
-//	'N',  '\0', '\0', '\0', '\0', '\0',  'A',  'A', '\0', '\0', /* 110 - 119 */
-//	'\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', /* 120 - 129 */
-//	'\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', /* 130 - 139 */
-//	'\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', /* 140 - 149 */
-//	'\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', /* 150 - 159 */
-//	'\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', /* 160 - 169 */
-//	'\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', /* 170 - 179 */
-//	'\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', /* 180 - 189 */
-//	'\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', /* 190 - 199 */
-//	'\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', /* 200 - 209 */
-//	'\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', /* 210 - 219 */
-//	'\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', /* 220 - 229 */
-//	'\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', /* 230 - 239 */
-//	'\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', /* 240 - 249 */
-//	'\0', '\0', '\0', '\0', '\0'                                /* 250 - 254 */
-//};
-
-//string GetComplementarySeq(int len, string& seq)
-//{
-//	int i, j;
-//	string rseq;
-//
-//	//if (len == 1) printf("Old:%s\n", seq.c_str());
-//	rseq.resize(len);
-//	for (j = len - 1, i = 0; i<j; i++, j--)
-//	{
-//		rseq[i] = ReverseMap[(int)seq[j]];
-//		rseq[j] = ReverseMap[(int)seq[i]];
-//	}
-//	if (i == j) rseq[i] = ReverseMap[(int)seq[i]];
-//	return rseq;
-//}
-//
-//void GetComplementarySeq(int len, char* seq, char* rseq)
-//{
-//	int i, j;
-//
-//	for (j = len - 1, i = 0; i<j; i++, j--)
-//	{
-//		rseq[i] = ReverseMap[(int)seq[j]];
-//		rseq[j] = ReverseMap[(int)seq[i]];
-//	}
-//	if (i == j) rseq[i] = ReverseMap[(int)seq[i]];
-//
-//	rseq[len] = '\0';
-//}
-//
-//void SelfComplementarySeq(int len, char* seq)
-//{
-//	int i, j;
-//	char aa1, aa2;
-//
-//	for (j = len - 1, i = 0; i<j; i++, j--)
-//	{
-//		aa1 = seq[i]; aa2 = seq[j];
-//		seq[i] = ReverseMap[(int)aa2]; seq[j] = ReverseMap[(int)aa1];
-//	}
-//	if (i == j) seq[i] = ReverseMap[(int)seq[i]];
-//}
-
-//void CreateComplementarySeq(int slen, string& seq)
-//{
-//	int i, j;
-//
-//	j = slen << 1; seq.resize(j);
-//	for (i = 0, j = j - 1; i < slen; i++, j--) seq[j] = ReverseMap[(int)seq[i]];
-//}
-
 int parseLine(char* line) {
 	// This assumes that a digit will be found and the line ends in " Kb".
 	int i = strlen(line);
@@ -151,7 +70,7 @@ void ShowMappedRegion(vector<FragPair_t>& FragPairVec)
 {
 	map<int64_t, int>::iterator iter = RefSeqLocMap.lower_bound(FragPairVec.begin()->PosDiff);
 
-	printf("gPos = %lld, ref_key=%lld, ref_idx=%d\n", FragPairVec.begin()->PosDiff, iter->first, iter->second);
+	printf("gPos = %lld, ref_key=%lld, ref_idx=%d\n", (long long)FragPairVec.begin()->PosDiff, (long long)iter->first, iter->second);
 	if (iter != RefSeqLocMap.end()) printf("Mapped Strain = %s\n", RefIdx->bns->anns[iter->second].name);
 	else printf("Error!\n");
 }

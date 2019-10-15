@@ -60,8 +60,8 @@ bool CheckRequirementPaths()
 
 int64_t GetDBseq(const char* filename)
 {
+	int p;
 	fstream file;
-	int taxid, p;
 	int64_t total_n;
 	SeqInfo_t SeqInfo;
 	string str, seq, header, tax;
@@ -121,7 +121,7 @@ void InitializeClusterPath()
 
 int main(int argc, char* argv[])
 {
-	int i, n;
+	int i;
 	string parameter, str;
 
 	iThreadNum = 16;
@@ -169,7 +169,7 @@ int main(int argc, char* argv[])
 	//removing temporary files
 	RemoveSeqFiles();
 
-	fprintf(stderr, "Original db_size = %lld, representative sequence db_size = %lld\n", TotalSeqSize, NRS_Size);
+	fprintf(stderr, "Original db_size = %lld, representative sequence db_size = %lld\n", (long long)TotalSeqSize, (long long)NRS_Size);
 	fprintf(stderr, "Done! It took %lld seconds. (MemUsage: %d MB)\n\n", (long long)(time(NULL) - StartProcessTime), CheckMemoryUsage());
 
 	return 0;

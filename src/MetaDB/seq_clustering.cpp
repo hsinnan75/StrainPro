@@ -34,7 +34,7 @@ void Seq_Clustering(const char* clr_suffix)
 	char cluster_fn[24];
 	string str, tax, tmp, cmd;
 	vector<pair<int, int> > vec;
-	int i, p, sid, cluster_id, taxid;
+	int i, sid, cluster_id, taxid;
 	map<int, vector<int> > ClusterMemberMap;
 
 	ClusterSizeMap.clear();
@@ -112,7 +112,7 @@ static void *Make_BWT_index(void *arg)
 		if (job_id >= ClusterSize) break;
 		fn = ClusterSeqPathVec[job_id].first; IdxPrefix = fn.substr(0, fn.find_last_of('.'));
 		pthread_mutex_lock(&Lock);
-		fprintf(stderr, "Build index for %s (%d Mbp) (%d/%d)\n", fn.c_str(), ClusterSeqPathVec[job_id].second / 1000000, job_id + 1, ClusterSize);
+		fprintf(stderr, "Build index for %s (%d Mbp) (%d/%d)\n", fn.c_str(), (int)(ClusterSeqPathVec[job_id].second / 1000000), job_id + 1, ClusterSize);
 		pthread_mutex_unlock(&Lock);
 		sprintf(cmd, "./bwt_index %s %s > /dev/null", fn.c_str(), IdxPrefix.c_str()); system(cmd);
 	}

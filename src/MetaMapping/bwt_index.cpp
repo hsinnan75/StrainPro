@@ -228,7 +228,7 @@ void RestoreReferenceInfo()
 
 	//fprintf(stderr, "\tLoad the %d reference sequences (%lldM bp)", iRefSeqNum, RefSeqSize/1000000);
 	fseek(RefIdx->bns->fp_pac, 0, SEEK_SET);
-	size_t ret = fread(RefIdx->pac, 1, RefSeqSize / 4 + 1, RefIdx->bns->fp_pac);
+	fread(RefIdx->pac, 1, RefSeqSize / 4 + 1, RefIdx->bns->fp_pac);
 
 	RefSeqLocMap.clear(); 
 	for (i = 0; i < iRefSeqNum; i++)
