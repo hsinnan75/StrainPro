@@ -185,7 +185,7 @@ int CheckAlignmentBounary(vector<FragPair_t>& FragPairVec)
 	iter1 = RefSeqLocMap.lower_bound(FragPairVec.begin()->gPos);
 	iter2 = RefSeqLocMap.lower_bound((FragPairVec.rbegin()->gPos + FragPairVec.rbegin()->gLen - 1));
 
-	if (iter1->second != iter2->second) return -1;
+	if (iter1 == RefSeqLocMap.end() || iter2 == RefSeqLocMap.end() || iter1->second != iter2->second) return -1;
 	else return iter1->second;
 }
 
