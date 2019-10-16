@@ -95,8 +95,7 @@ void IdentifyNormalPairs(int rlen, vector<FragPair_t>& FragPairVec)
 		FragPair.rLen = FragPair.gLen = FragPairVec[0].rPos;
 		FragPairVec.insert(FragPairVec.begin(), FragPair);
 	}
-	num = (int)FragPairVec.size();
-	if ((FragPairVec[num - 1].rPos + FragPairVec[num - 1].rLen) < rlen)
+	if ((num = (int)FragPairVec.size()) > 0 && (FragPairVec[num - 1].rPos + FragPairVec[num - 1].rLen) < rlen)
 	{
 		FragPair.rPos = FragPairVec[num - 1].rPos + FragPairVec[num - 1].rLen;
 		FragPair.gPos = FragPairVec[num - 1].gPos + FragPairVec[num - 1].gLen;
@@ -195,8 +194,7 @@ bool ProduceReadAlignment(ReadItem_t& read)
 	vector<AlnCan_t>::iterator iter;
 	int i, thr, ref_idx, FragPairNum;
 
-	read.AlnSummary.score = read.AlnSummary.taxid = 0;
-	thr = read.rlen - MaxMismatchNum;
+	read.AlnSummary.score = read.AlnSummary.taxid = 0; thr = read.rlen - MaxMismatchNum;
 	for (iter = read.AlnCanVec.begin(); iter != read.AlnCanVec.end(); iter++)
 	{
 		if (iter->score == 0) continue;
