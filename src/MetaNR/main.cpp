@@ -1,8 +1,8 @@
 #include "structure.h"
 #include <sys/stat.h>
+#include "../version.h"
 
 time_t StartProcessTime;
-const char* VersionStr = "0.9.0";
 
 bwt_t *Refbwt;
 int iThreadNum;
@@ -15,10 +15,10 @@ string MergedDumpFilePath = "taxonomy/merged.dmp";
 void ShowProgramUsage(const char* program)
 {
 	fprintf(stderr, "\n");
+	fprintf(stderr, "%s v%s\n", program, VERSION);
 	fprintf(stderr, "Usage: %s -i IndexPrefix\n\n", program);
 	fprintf(stderr, "Options: -t     INT     number of threads [%d]\n", iThreadNum);
 	fprintf(stderr, "         -o     STR     output fasta [%s]\n", OutputFASTA);
-	fprintf(stderr, "         -v             development version\n");
 	fprintf(stderr, "\n");
 }
 
@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
 	iThreadNum = 16;
 	OutputFASTA = (char*)"output.fasta";
 
-	if (argc == 1 || strcmp(argv[1], "-h") == 0)
+	if (argc == 1 || strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0)
 	{
 		ShowProgramUsage(argv[0]);
 		exit(0);
@@ -70,11 +70,6 @@ int main(int argc, char* argv[])
 			else if (parameter == "-t" && i + 1 < argc)
 			{
 				if ((iThreadNum = atoi(argv[++i])) < 0) iThreadNum = 16;
-			}
-			else if (parameter == "-v")
-			{
-				fprintf(stderr, "%s v%s\n", argv[0], VersionStr);
-				exit(0);
 			}
 			else fprintf(stderr, "Warning! Unknow parameter: %s\n", argv[i]);
 		}

@@ -1,10 +1,9 @@
 #include <dirent.h>
 #include "structure.h"
+#include "../version.h"
 
 time_t StartProcessTime;
 vector<string> ReadLibraryVec;
-
-const char* VersionStr = "0.9.0";
 
 float minSeqRatio;
 bool bDebugMode, bFastMode;
@@ -18,7 +17,7 @@ int iThreadNum, iRefSeqNum, MaxMismatchNum, minFrequency, minDepth;
 void ShowProgramUsage(const char* program)
 {
 	fprintf(stderr, "\n");
-	fprintf(stderr, "%s v%s\n", program, VersionStr);
+	fprintf(stderr, "%s v%s\n", program, VERSION);
 	fprintf(stderr, "Usage: %s -i Index_Prefix -f <ReadFile_1 ReadFile_2 ...> -o OutputPrefix\n\n", program);
 	fprintf(stderr, "Options: IndexPrefix can be either an index prefix or a directory of multiple indexes\n");
 	fprintf(stderr, "         -t     INT     number of threads [%d]\n", iThreadNum);
@@ -107,7 +106,7 @@ int main(int argc, char* argv[])
 	minFrequency = 50;
 	OutputFilename = (char*)"output.res";
 
-	if (argc == 1 || strcmp(argv[1], "-h") == 0)
+	if (argc == 1 || strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0)
 	{
 		ShowProgramUsage(argv[0]);
 		exit(0);

@@ -18,4 +18,5 @@ echo
 bin/StrainPro-map -i ecoli_db/ -f test/read.fq.gz
 
 echo
+rm -rf ecoli_db
 echo "[End of test]"
