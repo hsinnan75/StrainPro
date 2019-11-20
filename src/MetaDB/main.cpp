@@ -165,7 +165,7 @@ int main(int argc, char* argv[])
 	RemoveSeqFiles();
 
 	fprintf(stderr, "Original db_size = %dMb, representative sequence db_size = %dMb\n", (int)(TotalSeqSize/1000000), (int)(NRS_Size/1000000));
-	fprintf(stderr, "Done! It took %lld seconds. (MemUsage: %d MB)\n\n", (long long)(time(NULL) - StartProcessTime), CheckMemoryUsage());
+	fprintf(stderr, "Done! It took %lld seconds.\n\n", (long long)(time(NULL) - StartProcessTime));
 
 	return 0;
 }

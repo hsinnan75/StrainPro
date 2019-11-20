@@ -94,7 +94,7 @@ int main(int argc, char* argv[])
 		RestoreReferenceInfo();
 	}
 	SeqTaxing();
-	fprintf(stderr, "Done! It took %lld seconds. (MemUsage: %d MB)\n\n", (long long)(time(NULL) - StartProcessTime), CheckMemoryUsage());
+	fprintf(stderr, "Done! It took %lld seconds.\n\n", (long long)(time(NULL) - StartProcessTime));
 	
 	bwa_idx_destroy(RefIdx);
 
