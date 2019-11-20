@@ -6,7 +6,7 @@ int* RefTaxArr;
 int64_t cur_Ref_gPos;
 map<int64_t, int> RefPosTaxMap;
 map<int, int64_t> TaxRankSizeMap;
-static pthread_mutex_t MutexLock;
+pthread_mutex_t MutexLock;
 
 void InitializeRefPosTaxMap()
 {
@@ -91,6 +91,8 @@ void SeqTaxing()
 
 	fprintf(stderr, "Step4. Annotate all sequence fragments in the reference sequences.\n");
 	
+	pthread_mutex_init(&MutexLock, NULL);
+
 	RefTaxArr = new int[RefSeqSize];
 	//for (cur_Ref_gPos = 0; cur_Ref_gPos < RefSeqSize; cur_Ref_gPos++) RefTaxArr[cur_Ref_gPos] = -1;
 	InitializeRefTaxArr(); InitializeRefPosTaxMap();

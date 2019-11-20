@@ -4,11 +4,11 @@ bwt_t *Refbwt;
 bwaidx_t *RefIdx;
 char *RefSequence;
 time_t MappingTime;
+pthread_mutex_t Lock;
 int IndexID, IndexNum;
 FILE *ReadFileHandler;
 gzFile gzReadFileHandler;
 vector<string> ReadSeqVec;
-static pthread_mutex_t Lock;
 vector<MapInfo_t> MapInfoVec;
 bool FastQFormat, gzCompressed;
 int64_t ReadSeqVecSize, iTotalReadNum, RefSeqSize, DoubleRefSeqSize;
@@ -204,6 +204,8 @@ void MetaMapping()
 {
 	int i, LibraryID;
 	pthread_t *ThreadArr = new pthread_t[iThreadNum];
+
+	pthread_mutex_init(&Lock, NULL);
 
 	IndexNum = (int)IndexPrefixVec.size(); MapInfoVec.clear();
 	for (IndexID = 0; IndexID < IndexNum; IndexID++)

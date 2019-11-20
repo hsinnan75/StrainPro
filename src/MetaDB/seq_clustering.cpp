@@ -2,7 +2,7 @@
 
 #define MinClusterSize 1000000000
 
-static pthread_mutex_t Lock;
+pthread_mutex_t Lock;
 map<int, int64_t> ClusterSizeMap;
 static int ClusterSize, ClusterID;
 vector<pair<string, int64_t> > ClusterSeqPathVec;
@@ -123,7 +123,10 @@ void Make_DB_Index()
 {
 	int i;
 
+	pthread_mutex_init(&Lock, NULL);
+
 	ClusterID = 0; ClusterSize = (int)ClusterSeqPathVec.size();
+
 	pthread_t *ThreadArr = new pthread_t[iThreadNum];
 	for (i = 0; i < iThreadNum; i++) pthread_create(&ThreadArr[i], NULL, Make_BWT_index, NULL);
 	for (i = 0; i < iThreadNum; i++) pthread_join(ThreadArr[i], NULL);
