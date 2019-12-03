@@ -13,7 +13,7 @@ rep: bin
 		$(MAKE) -C src/MetaNR
 		cp -f src/MetaNR/StrainPro-rep bin/
 		
-db: bin
+db: index
 		$(MAKE) -C src/MetaDB
 		cp -f src/MetaDB/StrainPro-build bin/
 

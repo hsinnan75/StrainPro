@@ -12,30 +12,6 @@ int parseLine(char* line) {
 	return i;
 }
 
-// return value is in GB
-int CheckMemoryUsage()
-{
-	FILE* file;
-	
-	if ((file = fopen("/proc/self/status", "r")))
-	{
-		int iKB = -1;
-		char line[128];
-
-		while (fgets(line, 128, file) != NULL) {
-			if (strncmp(line, "VmRSS:", 6) == 0) {
-				iKB = parseLine(line);
-				break;
-			}
-		}
-		fclose(file);
-
-		if (iKB > 0) return (iKB >> 10);
-		else return 0;
-	}
-	else return 0;
-}
-
 void ShowFragmentPair(char* ReadSeq, FragPair_t& fp)
 {
 	string frag1, frag2;

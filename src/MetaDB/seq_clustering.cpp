@@ -1,6 +1,10 @@
 #include "structure.h"
 
 #define MinClusterSize 1000000000
+extern "C"
+{
+	int bwa_idx_build(const char *fa, const char *prefix);
+}
 
 pthread_mutex_t Lock;
 map<int, int64_t> ClusterSizeMap;
@@ -114,7 +118,8 @@ static void *Make_BWT_index(void *arg)
 		pthread_mutex_lock(&Lock);
 		fprintf(stderr, "Build index for %s (%d Mbp) (%d/%d)\n", fn.c_str(), (int)(ClusterSeqPathVec[job_id].second / 1000000), job_id + 1, ClusterSize);
 		pthread_mutex_unlock(&Lock);
-		sprintf(cmd, "bin/bwt_index %s %s > /dev/null", fn.c_str(), IdxPrefix.c_str()); system(cmd);
+		bwa_idx_build(fn.c_str(), IdxPrefix.c_str());
+		//sprintf(cmd, "bin/bwt_index %s %s > /dev/null", fn.c_str(), IdxPrefix.c_str()); system(cmd);
 	}
 	return (void*)(1);
 }

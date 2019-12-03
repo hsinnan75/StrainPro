@@ -22,15 +22,6 @@ void ShowProgramUsage(const char* program)
 	fprintf(stderr, "\n");
 }
 
-//void GetProgramPath(char* program)
-//{
-//	int i, len = strlen(program);
-//	for (i = len - 1; i > 0; i--) if (program[i] == '/') break;
-//	WorkingFolder = new char[i + 2];
-//	strncpy(WorkingFolder, program, i + 1);
-//	WorkingFolder[i + 1] = '\0';
-//}
-
 bool CheckBWAIndexFiles()
 {
 	char fn[1024];
