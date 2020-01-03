@@ -35,7 +35,7 @@ The script will download all complete chromosomes/genomes of the designated libr
 
 If you would like to use a customized reference library, please make sure your reference genomes follow the below requirements:
  - Genome sequences are in FASTA format.
- - Each sequence's header must start with "taxid|xxxxx|" where xxxxx is the taxon ID. For example,
+ - Each sequence's header must contain the pattern of "taxid|xxxxx|" where xxxxx is the taxon ID. For example,
    >taxid|562|NZ_CP027599.1 Escherichia coli strain 97-3250 
    ATCCCGGCCCCGGCAGAACCGACCTATCGTTCTAACGTAAACGT....
 
