@@ -34,7 +34,7 @@ int64_t Load_All_NRS()
 		{
 			getline(file, str); if (str == "") continue;
 			getline(file, SeqInfo.seq); total_n += SeqInfo.seq.length();
-			p1 = str.find("taxid|") + 7; p2 = str.find_first_of('|', p1);
+			p1 = str.find("taxid|") + 6; p2 = str.find_first_of('|', p1);
 			tax = str.substr(p1, p2 - p1); SeqInfo.taxid = atoi(tax.c_str());
 			SeqInfo.header = str.substr(1); SeqVec.push_back(SeqInfo);
 		}
