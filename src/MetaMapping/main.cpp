@@ -10,9 +10,10 @@ bool bDebugMode, bFastMode;
 vector<string> IndexPrefixVec;
 map<int64_t, int> RefSeqLocMap;
 char *IndexFileName, *OutputFilename;
+int iThreadNum, iRefSeqNum, MaxMismatchNum, minFrequency, minDepth;
+
 string NodesDumpFilePath = "taxonomy/nodes.dmp";
 string MergedDumpFilePath = "taxonomy/merged.dmp";
-int iThreadNum, iRefSeqNum, MaxMismatchNum, minFrequency, minDepth;
 
 void ShowProgramUsage(const char* program)
 {
@@ -22,6 +23,7 @@ void ShowProgramUsage(const char* program)
 	fprintf(stderr, "Options: IndexPrefix can be either an index prefix or a directory of multiple indexes\n");
 	fprintf(stderr, "         -t     INT     number of threads [%d]\n", iThreadNum);
 	fprintf(stderr, "         -n     INT     maximal mismatches in an alignment [%d]\n", MaxMismatchNum);
+	fprintf(stderr, "         -dump  STRING  dump file path\n");
 	fprintf(stderr, "\n");
 }
 
@@ -39,6 +41,28 @@ bool CheckReadFiles()
 		}
 	}
 	return bRet;
+}
+
+void LoadDumpFilePath(const char* filename)
+{
+	fstream file;
+	stringstream ss;
+	string str, s1, s2;
+
+	file.open(filename, ios_base::in);
+	if (!file.is_open())
+	{
+		fprintf(stderr, "cannot open file %s\n", filename);
+		exit(1);
+	}
+	while (!file.eof())
+	{
+		getline(file, str); if (str == "") continue;
+		ss.clear(); ss >> s1 >> s2;
+		if (s1 == "NodesDumpFilePath") NodesDumpFilePath = s2;
+		else if (s1 == "MergedDumpFilePath") MergedDumpFilePath = s2;
+	}
+	file.close();
 }
 
 bool CheckIndexFileName()
@@ -105,6 +129,8 @@ int main(int argc, char* argv[])
 	RefSequence = NULL;
 	minFrequency = 50;
 	OutputFilename = (char*)"output.res";
+	NodesDumpFilePath = "taxonomy/nodes.dmp";
+	MergedDumpFilePath = "taxonomy/merged.dmp";
 
 	if (argc == 1 || strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0)
 	{
@@ -128,7 +154,6 @@ int main(int argc, char* argv[])
 			else if (parameter == "-freq" && ++i < argc) minFrequency = atoi(argv[i]);
 			else if (parameter == "-depth" && ++i < argc) minSeqRatio = (atoi(argv[i]) / 101.0);
 			else if (parameter == "-d" || parameter == "-debug") bDebugMode = true;
-			//else if (parameter == "-fast") bFastMode = true;
 			else if (parameter == "-t" && ++i < argc)
 			{
 				if ((iThreadNum = atoi(argv[i])) < 0)
@@ -137,6 +162,7 @@ int main(int argc, char* argv[])
 					iThreadNum = 16;
 				}
 			}
+			else if (parameter == "-dump" && ++i < argc) LoadDumpFilePath(argv[i]);
 			else fprintf(stderr, "Warning! Unknow parameter: %s\n", argv[i]);
 		}
 		StartProcessTime = time(NULL);
