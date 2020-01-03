@@ -35,7 +35,7 @@ int GetTaxIdByTaxLevel(int taxid)
 void Seq_Clustering(const char* clr_suffix)
 {
 	FILE* cluster_fp;
-	char cluster_fn[24];
+	char cluster_fn[1024];
 	string str, tax, tmp, cmd;
 	vector<pair<int, int> > vec;
 	int i, sid, cluster_id, taxid;
@@ -104,7 +104,6 @@ void Seq_Clustering(const char* clr_suffix)
 static void *Make_BWT_index(void *arg)
 {
 	int job_id;
-	char cmd[256];
 	string fn, IdxPrefix;
 
 	while (true)

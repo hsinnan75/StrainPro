@@ -53,7 +53,6 @@ ReadItem_t GetNextEntry(FILE *file)
 	{
 		//len = IdentifyHeaderBoundary(buffer, len) - 1; read.header = new char[len + 1];
 		//strncpy(read.header, buffer + 1, len); read.header[len] = '\0';
-
 		if (FastQFormat)
 		{
 			if ((read.rlen = getline(&buffer, &size, file)) != -1)
