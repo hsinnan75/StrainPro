@@ -84,7 +84,7 @@ int64_t GetDBseq(const char* filename)
 				fprintf(stderr, "Warning! [%s] does not contain the taxid label\n", str.c_str());
 				continue;
 			}
-			p1 += 7; p2 = str.find_first_of('|', p1); tax = str.substr(p1, p2 - p1); 
+			p1 += 6; p2 = str.find_first_of('|', p1); tax = str.substr(p1, p2 - p1); 
 			SeqInfo.taxid = atoi(tax.c_str());
 			SeqInfo.header = str.substr(1); SeqInfo.seq.clear();
 		}

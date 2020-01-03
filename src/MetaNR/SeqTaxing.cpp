@@ -12,11 +12,11 @@ void InitializeRefPosTaxMap()
 {
 	int64_t gPos;
 	string str, tax;
-	int i, p, taxid;
+	int i, p1, p2, taxid;
 
 	for (gPos = 0, i = 0; i < RefIdx->bns->n_seqs; i++)
 	{
-		str = RefIdx->bns->anns[i].name; p = str.find_first_of('|', 6); tax = str.substr(6, p - 6); taxid = atoi(tax.c_str());
+		str = RefIdx->bns->anns[i].name; p1 = str.find("taxid|") + 6; p2 = str.find_first_of('|', p1); tax = str.substr(p1, p2 - p1); taxid = atoi(tax.c_str());
 		gPos += RefIdx->bns->anns[i].len; RefPosTaxMap.insert(make_pair(gPos - 1, taxid));
 		//printf("[%lld - %lld]: %s (%d)\n", gPos - RefIdx->bns->anns[i].len, gPos - 1, RefIdx->bns->anns[i].name, taxid);
 	}

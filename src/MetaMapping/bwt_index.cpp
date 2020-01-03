@@ -198,11 +198,10 @@ void bwa_idx_destroy(bwaidx_t *idx)
 int GetTaxFromHeader(string header)
 {
 	string tax;
-	int p, taxid;
+	int p1, p2, taxid;
 
-	p = header.find_first_of('|', 6);
-	tax = header.substr(6, p - 6);
-	taxid = atoi(tax.c_str());
+	p1 = header.find("taxid|") + 6; p2 = header.find_first_of('|', p1);
+	tax = header.substr(p1, p2 - p1); taxid = atoi(tax.c_str());
 
 	return taxid;
 }
