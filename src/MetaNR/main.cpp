@@ -19,6 +19,7 @@ void ShowProgramUsage(const char* program)
 	fprintf(stderr, "Usage: %s -i IndexPrefix\n\n", program);
 	fprintf(stderr, "Options: -t     INT     number of threads [%d]\n", iThreadNum);
 	fprintf(stderr, "         -o     STR     output fasta [%s]\n", OutputFASTA);
+	fprintf(stderr, "         -dump  STRING  dump file path\n");
 	fprintf(stderr, "\n");
 }
 

@@ -18,6 +18,7 @@ void ShowProgramUsage(const char* program)
 	fprintf(stderr, "%s v%s\n", program, VERSION);
 	fprintf(stderr, "Usage: %s -r DB_SeqFile[fa] -o OutputFolder\n\n", program);
 	fprintf(stderr, "Options: -t     INT     number of threads [%d]\n", iThreadNum);
+	fprintf(stderr, "         -dump  STRING  dump file path\n");
 	fprintf(stderr, "\n");
 }
 
