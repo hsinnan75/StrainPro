@@ -21,8 +21,8 @@ void Make_nrDB()
 int64_t Load_All_NRS()
 {
 	fstream file;
-	int taxid, p;
 	int64_t total_n;
+	int taxid, p1, p2;
 	SeqInfo_t SeqInfo;
 	string str, header, tax;
 
@@ -34,7 +34,8 @@ int64_t Load_All_NRS()
 		{
 			getline(file, str); if (str == "") continue;
 			getline(file, SeqInfo.seq); total_n += SeqInfo.seq.length();
-			p = str.find_first_of('|', 7); tax = str.substr(7, p - 7); SeqInfo.taxid = atoi(tax.c_str());
+			p1 = str.find("taxid|") + 7; p2 = str.find_first_of('|', p1);
+			tax = str.substr(p1, p2 - p1); SeqInfo.taxid = atoi(tax.c_str());
 			SeqInfo.header = str.substr(1); SeqVec.push_back(SeqInfo);
 		}
 		file.close();

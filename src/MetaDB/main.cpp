@@ -60,7 +60,7 @@ bool CheckRequirementPaths()
 
 int64_t GetDBseq(const char* filename)
 {
-	int p;
+	int p1, p2;
 	fstream file;
 	int64_t total_n;
 	SeqInfo_t SeqInfo;
@@ -79,9 +79,12 @@ int64_t GetDBseq(const char* filename)
 				SeqVec.push_back(SeqInfo);
 			}
 			//reset seq_item
-			p = str.find_first_of('|', 7); tax = str.substr(7, p - 7); 
-			//taxid = atoi(tax.c_str()); while (TaxMap[taxid].rank < 10 && TaxMap[TaxMap[taxid].parent_taxid].rank < 10) taxid = TaxMap[taxid].parent_taxid;
-			//if (taxid != atoi(tax.c_str())) printf("%s --> %d\n", tax.c_str(), taxid);
+			if ((p1 = str.find("taxid|")) == -1)
+			{
+				fprintf(stderr, "Warning! [%s] does not contain the taxid label\n", str.c_str());
+				continue;
+			}
+			p1 += 7; p2 = str.find_first_of('|', p1); tax = str.substr(p1, p2 - p1); 
 			SeqInfo.taxid = atoi(tax.c_str());
 			SeqInfo.header = str.substr(1); SeqInfo.seq.clear();
 		}
