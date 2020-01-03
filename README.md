@@ -29,8 +29,10 @@ To download taxonomy information, please use the script "download_taxonomy.sh" t
 If you have downloaded or customized taxonomy dump files, you may specify the file path in a text file and run StrainPro with '-dump file'.
 The text file format should be
 
+  ```
 NodesDumpFilePath /path/nodes.dmp
 MergedDumpFilePath /path/merged.dmp
+  ```
 
 to specify the paths for NodesDumpFile and MergedDumpFile
 
