@@ -84,7 +84,7 @@ string ShowTaxRank(int rank)
 	case 35: return "suborder";
 	case 40: return "order";
 	case 45: return "subclass";
-	case 50: return "calss";
+	case 50: return "class";
 	case 55: return "subphylum";
 	case 60: return "phylum";
 	case 65: return "subkingdom";
