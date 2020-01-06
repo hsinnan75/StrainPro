@@ -21,9 +21,11 @@ void ShowProgramUsage(const char* program)
 	fprintf(stderr, "%s v%s\n", program, VERSION);
 	fprintf(stderr, "Usage: %s -i Index_Prefix -f <ReadFile_1 ReadFile_2 ...> -o OutputPrefix\n\n", program);
 	fprintf(stderr, "Options: IndexPrefix can be either an index prefix or a directory of multiple indexes\n");
-	fprintf(stderr, "         -t     INT     number of threads [%d]\n", iThreadNum);
-	fprintf(stderr, "         -n     INT     maximal mismatches in an alignment [%d]\n", MaxMismatchNum);
-	fprintf(stderr, "         -dump  STRING  dump file path\n");
+	fprintf(stderr, "         -t           INT     number of threads [%d]\n", iThreadNum);
+	fprintf(stderr, "         -n           INT     maximal mismatches in an alignment [%d]\n", MaxMismatchNum);
+	fprintf(stderr, "         -depth       INT     minimal read depth of sequenced data [20]\n");
+	fprintf(stderr, "         -freq        INT     minimal read count for identified genomes [%d]\n", minFrequency);
+	fprintf(stderr, "         -dump        STRING  dump file path\n");
 	fprintf(stderr, "\n");
 }
 
