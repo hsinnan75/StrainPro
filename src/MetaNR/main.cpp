@@ -38,7 +38,7 @@ void LoadDumpFilePath(const char* filename)
 	while (!file.eof())
 	{
 		getline(file, str); if (str == "") continue;
-		ss.clear(); ss >> s1 >> s2;
+		ss.clear(); ss.str(str); ss >> s1 >> s2;
 		if (s1 == "NodesDumpFilePath")
 		{
 			f.close(); f.open(s2.c_str());
@@ -61,6 +61,8 @@ void LoadDumpFilePath(const char* filename)
 		}
 	}
 	file.close();
+
+	fprintf(stderr, "Use the dump files: %s and %s\n", NodesDumpFilePath.c_str(), MergedDumpFilePath.c_str());
 }
 
 bool CheckBWAIndexFiles()
