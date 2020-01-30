@@ -189,7 +189,7 @@ int main(int argc, char* argv[])
 			{
 				if ((iThreadNum = atoi(argv[++i])) < 0) iThreadNum = 16;
 			}
-			else if (parameter == "-dump" && ++i < argc) LoadDumpFilePath(argv[i]);
+			else if (parameter == "-dump" && i + 1 < argc) LoadDumpFilePath(argv[++i]);
 			else fprintf(stderr, "Warning! Unknow parameter: %s\n", argv[i]);
 		}
 	}
