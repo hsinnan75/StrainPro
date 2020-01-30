@@ -45,12 +45,24 @@ bool CheckReadFiles()
 	return bRet;
 }
 
+int is_regular_file(const char *path)
+{
+	struct stat path_stat;
+	stat(path, &path_stat);
+	return S_ISREG(path_stat.st_mode);
+}
+
 void LoadDumpFilePath(const char* filename)
 {
 	fstream file, f;
 	stringstream ss;
 	string str, s1, s2;
 
+	if (is_regular_file(filename) == false)
+	{
+		fprintf(stderr, "%s is not a regular file\n", filename);
+		exit(1);
+	}
 	file.open(filename, ios_base::in);
 	if (!file.is_open())
 	{
