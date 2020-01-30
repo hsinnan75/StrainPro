@@ -45,6 +45,11 @@ void GetTaxInfomation()
 	InitializeTaxRankMap();
 
 	fprintf(stderr, "Load taxonomy information.\n"); file.open(NodesDumpFilePath.c_str(), ios_base::in); // tax_id, parent tax_id, rank
+	if (!file.is_open())
+	{
+		fprintf(stderr, "Error! File: %s is not accesible\n", NodesDumpFilePath.c_str());
+		exit(1);
+	}
 	while (!file.eof())
 	{
 		getline(file, str); if (str == "") break;
@@ -70,6 +75,11 @@ void GetTaxInfomation()
 
 	map<int, TaxItem_t>::iterator iter;
 	file.clear(); file.open(MergedDumpFilePath.c_str(), ios_base::in);
+	if (!file.is_open())
+	{
+		fprintf(stderr, "Error! File: %s is not accesible\n", MergedDumpFilePath.c_str());
+		exit(1);
+	}
 	while (!file.eof())
 	{
 		getline(file, str); if (str == "") break;
