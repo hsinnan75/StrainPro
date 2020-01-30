@@ -25,7 +25,7 @@ void ShowProgramUsage(const char* program)
 
 void LoadDumpFilePath(const char* filename)
 {
-	fstream file;
+	fstream file, f;
 	stringstream ss;
 	string str, s1, s2;
 
@@ -39,8 +39,26 @@ void LoadDumpFilePath(const char* filename)
 	{
 		getline(file, str); if (str == "") continue;
 		ss.clear(); ss >> s1 >> s2;
-		if (s1 == "NodesDumpFilePath") NodesDumpFilePath = s2;
-		else if (s1 == "MergedDumpFilePath") MergedDumpFilePath = s2;
+		if (s1 == "NodesDumpFilePath")
+		{
+			f.close(); f.open(s2.c_str());
+			if (!f.is_open())
+			{
+				fprintf(stderr, "Error! File (%s) is not accessible\n", s2.c_str());
+				exit(1);
+			}
+			else NodesDumpFilePath = s2;
+		}
+		else if (s1 == "MergedDumpFilePath")
+		{
+			f.close(); f.open(s2.c_str());
+			if (!f.is_open())
+			{
+				fprintf(stderr, "Error! File (%s) is not accessible\n", s2.c_str());
+				exit(1);
+			}
+			else MergedDumpFilePath = s2;
+		}
 	}
 	file.close();
 }
