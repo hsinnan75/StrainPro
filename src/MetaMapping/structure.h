@@ -183,7 +183,6 @@ extern void ShowTaxSize();
 extern int CheckMemoryUsage();
 extern int64_t FindMappedReadNum();
 extern string ShowTaxRank(int rank);
-//extern string GenerateRandomString(int len);
 extern void ShowFragPair(FragPair_t& FragPair);
 extern void ShowFragPairInfo(vector<FragPair_t>& FragPairVec);
 extern void GetComplementarySeq(int len, char* seq, char* rseq);

@@ -5,11 +5,8 @@ time_t StartProcessTime;
 
 int iThreadNum;
 vector<SeqInfo_t> SeqVec;
-//string MetaNR_Path = "bin/StrainPro-rep";
 int64_t TotalSeqSize = 0, NRS_Size = 0;
 string StrainProDir, TaxonomyDir, ReferenceFilename, OutputFolder;
-//string NodesDumpFilePath = "taxonomy/nodes.dmp";
-//string MergedDumpFilePath = "taxonomy/merged.dmp";
 
 void ShowProgramUsage(const char* program)
 {
@@ -57,16 +54,6 @@ bool CheckRequirementPaths()
 		fprintf(stderr, "Cannot access file: %s\n", (char*)ReferenceFilename.c_str());
 		return false;
 	}
-	//if (stat(MergedDumpFilePath.c_str(), &s) == -1)
-	//{
-	//	fprintf(stderr, "Cannot access file: %s\n", (char*)MergedDumpFilePath.c_str());
-	//	return false;
-	//}
-	//if (stat(MetaNR_Path.c_str(), &s) == -1)
-	//{
-	//	fprintf(stderr, "Cannot access file: %s\n", (char*)MetaNR_Path.c_str());
-	//	return false;
-	//}
 	return true;
 }
 

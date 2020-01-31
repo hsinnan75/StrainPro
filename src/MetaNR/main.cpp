@@ -31,53 +31,6 @@ int is_regular_file(const char *path)
 	return S_ISREG(path_stat.st_mode);
 }
 
-//void LoadDumpFilePath(const char* filename)
-//{
-//	fstream file, f;
-//	stringstream ss;
-//	string str, s1, s2;
-//
-//	if (is_regular_file(filename) == false)
-//	{
-//		fprintf(stderr, "%s is not a regular file\n", filename);
-//		exit(1);
-//	}
-//	file.open(filename, ios_base::in);
-//	if (!file.is_open())
-//	{
-//		fprintf(stderr, "cannot open file %s\n", filename);
-//		exit(1);
-//	}
-//	while (!file.eof())
-//	{
-//		getline(file, str); if (str == "") continue;
-//		ss.clear(); ss.str(str); ss >> s1 >> s2;
-//		if (s1 == "NodesDumpFilePath")
-//		{
-//			f.close(); f.open(s2.c_str());
-//			if (!f.is_open())
-//			{
-//				fprintf(stderr, "Error! File (%s) is not accessible\n", s2.c_str());
-//				exit(1);
-//			}
-//			else NodesDumpFilePath = s2;
-//		}
-//		else if (s1 == "MergedDumpFilePath")
-//		{
-//			f.close(); f.open(s2.c_str());
-//			if (!f.is_open())
-//			{
-//				fprintf(stderr, "Error! File (%s) is not accessible\n", s2.c_str());
-//				exit(1);
-//			}
-//			else MergedDumpFilePath = s2;
-//		}
-//	}
-//	file.close();
-//
-//	fprintf(stderr, "Use the dump files: %s and %s\n", NodesDumpFilePath.c_str(), MergedDumpFilePath.c_str());
-//}
-
 bool CheckBWAIndexFiles()
 {
 	char fn[1024];

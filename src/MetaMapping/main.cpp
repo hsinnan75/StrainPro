@@ -12,8 +12,6 @@ map<int64_t, int> RefSeqLocMap;
 char *IndexFileName, *OutputFilename;
 int iThreadNum, iRefSeqNum, MaxMismatchNum, minFrequency, minDepth;
 
-//string NodesDumpFilePath = "taxonomy/nodes.dmp";
-//string MergedDumpFilePath = "taxonomy/merged.dmp";
 string StrainProDir, TaxonomyDir;
 
 void ShowProgramUsage(const char* program)
