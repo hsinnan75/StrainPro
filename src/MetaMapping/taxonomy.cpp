@@ -39,15 +39,16 @@ void GetTaxInfomation()
 {
 	fstream file;
 	TaxItem_t TaxItem;
-	string str, tax, rank, tmp;
+	string fn, str, tax, rank, tmp;
 	int p1, p2, rankid, taxid, parentid;
 
 	InitializeTaxRankMap();
 
-	fprintf(stderr, "Step1. Load taxonomy information.\n"); file.open(NodesDumpFilePath.c_str(), ios_base::in); // tax_id, parent tax_id, rank
+	fprintf(stderr, "Load taxonomy information.\n");
+	fn = TaxonomyDir + "/nodes.dmp"; file.open(fn.c_str(), ios_base::in); // tax_id, parent tax_id, rank
 	if (!file.is_open())
 	{
-		fprintf(stderr, "Error! File: %s is not accesible\n", NodesDumpFilePath.c_str());
+		fprintf(stderr, "Error! File: %s is not accesible\n", fn.c_str());
 		exit(1);
 	}
 	while (!file.eof())
@@ -74,10 +75,10 @@ void GetTaxInfomation()
 	}
 
 	map<int, TaxItem_t>::iterator iter;
-	file.clear(); file.open(MergedDumpFilePath.c_str(), ios_base::in);
+	fn = TaxonomyDir + "/merged.dmp"; file.clear(); file.open(fn.c_str(), ios_base::in); // tax_id, parent tax_id, rank
 	if (!file.is_open())
 	{
-		fprintf(stderr, "Error! File: %s is not accesible\n", MergedDumpFilePath.c_str());
+		fprintf(stderr, "Error! File: %s is not accesible\n", fn.c_str());
 		exit(1);
 	}
 	while (!file.eof())

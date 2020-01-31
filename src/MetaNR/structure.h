@@ -81,7 +81,7 @@ extern unsigned char nst_nt4_table[256];
 extern int64_t RefSeqSize, DoubleRefSeqSize;
 extern int iThreadNum;
 extern char *RefSequence, *IndexPrefix, *OutputFASTA;
-extern string NodesDumpFilePath, MergedDumpFilePath, ClusterFolder;
+extern string StrainProDir, TaxonomyDir, ClusterFolder;
 
 // bwt_index.cpp
 extern void RestoreReferenceInfo();

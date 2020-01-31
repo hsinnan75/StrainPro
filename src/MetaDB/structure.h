@@ -40,8 +40,8 @@ extern vector<SeqInfo_t> SeqVec;
 extern map<int, TaxItem_t> TaxMap;
 extern map<string, int> TaxRankMap;
 extern vector<string> ClusterSeqPath;
+extern string StrainProDir, TaxonomyDir, OutputFolder;
 extern vector<pair<string, int64_t> > ClusterSeqPathVec;
-extern string MetaNR_Path, NodesDumpFilePath, MergedDumpFilePath, OutputFolder;
 
 // nr_db.cpp
 extern void Make_nrDB();

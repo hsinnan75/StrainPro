@@ -12,8 +12,9 @@ map<int64_t, int> RefSeqLocMap;
 char *IndexFileName, *OutputFilename;
 int iThreadNum, iRefSeqNum, MaxMismatchNum, minFrequency, minDepth;
 
-string NodesDumpFilePath = "taxonomy/nodes.dmp";
-string MergedDumpFilePath = "taxonomy/merged.dmp";
+//string NodesDumpFilePath = "taxonomy/nodes.dmp";
+//string MergedDumpFilePath = "taxonomy/merged.dmp";
+string StrainProDir, TaxonomyDir;
 
 void ShowProgramUsage(const char* program)
 {
@@ -50,53 +51,6 @@ int is_regular_file(const char *path)
 	struct stat path_stat;
 	stat(path, &path_stat);
 	return S_ISREG(path_stat.st_mode);
-}
-
-void LoadDumpFilePath(const char* filename)
-{
-	fstream file, f;
-	stringstream ss;
-	string str, s1, s2;
-
-	if (is_regular_file(filename) == false)
-	{
-		fprintf(stderr, "%s is not a regular file\n", filename);
-		exit(1);
-	}
-	file.open(filename, ios_base::in);
-	if (!file.is_open())
-	{
-		fprintf(stderr, "cannot open file %s\n", filename);
-		exit(1);
-	}
-	while (!file.eof())
-	{
-		getline(file, str); if (str == "") continue;
-		ss.clear(); ss.str(str); ss >> s1 >> s2;
-		if (s1 == "NodesDumpFilePath")
-		{
-			f.close(); f.open(s2.c_str());
-			if (!f.is_open())
-			{
-				fprintf(stderr, "Error! File (%s) is not accessible\n", s2.c_str());
-				exit(1);
-			}
-			else NodesDumpFilePath = s2;
-		}
-		else if (s1 == "MergedDumpFilePath")
-		{
-			f.close(); f.open(s2.c_str());
-			if (!f.is_open())
-			{
-				fprintf(stderr, "Error! File (%s) is not accessible\n", s2.c_str());
-				exit(1);
-			}
-			else MergedDumpFilePath = s2;
-		}
-	}
-	file.close();
-
-	fprintf(stderr, "Use the dump files: %s and %s\n", NodesDumpFilePath.c_str(), MergedDumpFilePath.c_str());
 }
 
 bool CheckIndexFileName()
@@ -136,20 +90,36 @@ bool CheckRequirementPaths()
 {
 	struct stat s;
 
-	if (stat(NodesDumpFilePath.c_str(), &s) == -1)
+	if (stat(StrainProDir.c_str(), &s) == -1)
 	{
-		fprintf(stderr, "Cannot access file: %s\n", (char*)NodesDumpFilePath.c_str());
+		fprintf(stderr, "Cannot access %s\n", (char*)StrainProDir.c_str());
 		return false;
 	}
-	if (stat(MergedDumpFilePath.c_str(), &s) == -1)
+	if (stat(TaxonomyDir.c_str(), &s) == -1)
 	{
-		fprintf(stderr, "Cannot access file: %s\n", (char*)MergedDumpFilePath.c_str());
+		fprintf(stderr, "Cannot access %s\n", (char*)TaxonomyDir.c_str());
 		return false;
 	}
 	return true;
 }
 
-int main(int argc, char* argv[])
+void ParseEnvSetting(char * envp[])
+{
+	string str;
+
+	for (int i = 0; envp[i] != NULL; i++)
+	{
+		str = envp[i];
+		if (str.find("StrainPro_DIR") == 0)
+		{
+			StrainProDir = str.substr(14);
+			if (StrainProDir[StrainProDir.length() - 1] == '/') StrainProDir.resize(StrainProDir.length() - 1);
+			TaxonomyDir = StrainProDir.substr(0, StrainProDir.find_last_of('/')) + "/taxonomy";
+		}
+	}
+}
+
+int main(int argc, char* argv[], char* envp[])
 {
 	int i;
 	string parameter, str;
@@ -163,8 +133,8 @@ int main(int argc, char* argv[])
 	RefSequence = NULL;
 	minFrequency = 50;
 	OutputFilename = (char*)"output.res";
-	NodesDumpFilePath = "taxonomy/nodes.dmp";
-	MergedDumpFilePath = "taxonomy/merged.dmp";
+
+	ParseEnvSetting(envp);
 
 	if (argc == 1 || strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0)
 	{
@@ -196,8 +166,13 @@ int main(int argc, char* argv[])
 					iThreadNum = 16;
 				}
 			}
-			else if (parameter == "-dump" && i + 1 < argc) LoadDumpFilePath(argv[++i]);
+			else if (parameter == "-dump" && i + 1 < argc) TaxonomyDir = argv[++i];
 			else fprintf(stderr, "Warning! Unknow parameter: %s\n", argv[i]);
+		}
+		if (StrainProDir == "")
+		{
+			fprintf(stderr, "Cannot find StrainPro_bin directory, please add the environment variable StrainPro_DIR to the StrainPro's bin directory!\n");
+			exit(0);
 		}
 		StartProcessTime = time(NULL);
 		if (ReadLibraryVec.size() == 0)

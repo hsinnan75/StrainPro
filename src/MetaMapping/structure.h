@@ -144,7 +144,7 @@ extern vector<MapInfo_t> MapInfoVec;
 extern vector<string> IndexPrefixVec;
 extern vector<string> ReadLibraryVec;
 extern map<int64_t, int> RefSeqLocMap;
-extern string NodesDumpFilePath, MergedDumpFilePath;
+extern string StrainProDir, TaxonomyDir;
 extern char *RefSequence, *IndexFileName, *OutputFilename;
 extern int64_t RefSeqSize, DoubleRefSeqSize, iTotalReadNum;
 extern bool bDebugMode, bFastMode, FastQFormat, gzCompressed;
