@@ -13,7 +13,7 @@ void Make_nrDB()
 		IdxPrefix = iter->first.substr(0, iter->first.find_last_of('.'));
 		output_fn = IdxPrefix + ".rep"; RepDB_vec.push_back(output_fn);
 
-		sprintf(cmd, "%s/StrainPro-rep -i %s -t %d -o %s", StrainProDir.c_str(), IdxPrefix.c_str(), iThreadNum, output_fn.c_str());
+		sprintf(cmd, "%s/StrainPro-rep -dump %s -i %s -t %d -o %s", StrainProDir.c_str(), TaxonomyDir.c_str(), IdxPrefix.c_str(), iThreadNum, output_fn.c_str());
 		fprintf(stderr, "cmd=%s\n", cmd); system(cmd);
 	}
 }

@@ -10,8 +10,6 @@ bwaidx_t *RefIdx;
 string StrainProDir, TaxonomyDir;
 int64_t RefSeqSize, DoubleRefSeqSize;
 char *RefSequence, *IndexPrefix, *OutputFASTA;
-//string NodesDumpFilePath = "taxonomy/nodes.dmp";
-//string MergedDumpFilePath = "taxonomy/merged.dmp";
 
 void ShowProgramUsage(const char* program)
 {
@@ -62,6 +60,23 @@ void ParseEnvSetting(char * envp[])
 	}
 }
 
+bool CheckRequirementPaths()
+{
+	struct stat s;
+
+	if (stat(StrainProDir.c_str(), &s) == -1)
+	{
+		fprintf(stderr, "Cannot access %s\n", (char*)StrainProDir.c_str());
+		return false;
+	}
+	if (stat(TaxonomyDir.c_str(), &s) == -1)
+	{
+		fprintf(stderr, "Cannot access %s\n", (char*)TaxonomyDir.c_str());
+		return false;
+	}
+	return true;
+}
+
 int main(int argc, char* argv[], char* envp[])
 {
 	int i;
@@ -98,6 +113,7 @@ int main(int argc, char* argv[], char* envp[])
 		fprintf(stderr, "Cannot find StrainPro_bin directory, please add the environment variable StrainPro_DIR to the StrainPro's bin directory!\n");
 		exit(0);
 	}
+	if (CheckRequirementPaths() == false) exit(1);
 
 	StartProcessTime = time(NULL);
 
