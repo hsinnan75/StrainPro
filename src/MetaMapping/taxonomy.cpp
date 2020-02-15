@@ -95,10 +95,12 @@ void GetTaxInfomation()
 int Pairwise_LCA(int taxid1, int taxid2)
 {
 	//printf("Find LCA for %d and %d\n", taxid1, taxid2);
-	if (taxid1 == 0 || taxid2 == 0) return 0;
 
 	while (taxid1 != taxid2)
 	{
+		if (taxid1 == 0 || taxid2 == 0) return 0;
+		else if (TaxMap[taxid1].rank == 0 || TaxMap[taxid2].rank == 0) return 0;
+
 		while (TaxMap[taxid1].rank != TaxMap[taxid2].rank)
 		{
 			while (TaxMap[taxid1].rank < TaxMap[taxid2].rank) taxid1 = TaxMap[taxid1].parent_taxid;
@@ -110,7 +112,6 @@ int Pairwise_LCA(int taxid1, int taxid2)
 			taxid1 = TaxMap[taxid1].parent_taxid;
 			taxid2 = TaxMap[taxid2].parent_taxid;
 		}
-		else break;
 	}
 	//printf("LCA=%d\n\n", taxid1);
 	return taxid1;
