@@ -110,6 +110,7 @@ int Pairwise_LCA(int taxid1, int taxid2)
 			taxid1 = TaxMap[taxid1].parent_taxid;
 			taxid2 = TaxMap[taxid2].parent_taxid;
 		}
+		else break;
 	}
 	//printf("LCA=%d\n\n", taxid1);
 	return taxid1;
