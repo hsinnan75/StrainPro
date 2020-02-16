@@ -40,6 +40,7 @@ void GetTaxInfomation()
 	fstream file;
 	TaxItem_t TaxItem;
 	string fn, str, tax, rank, tmp;
+	map<int, TaxItem_t>::iterator iter;
 	int p1, p2, rankid, taxid, parentid;
 
 	InitializeTaxRankMap();
@@ -64,17 +65,21 @@ void GetTaxInfomation()
 		TaxMap.insert(make_pair(taxid, TaxItem));
 	}
 	file.close();
-	for (map<int, TaxItem_t>::iterator iter = TaxMap.begin(); iter != TaxMap.end(); iter++)
+	for (iter = TaxMap.begin(); iter != TaxMap.end(); iter++)
 	{
 		if (iter->second.rank == 0)
 		{
+			if (TaxMap.find(iter->second.parent_taxid) == TaxMap.end())
+			{
+				fprintf(stderr, "\nError! Cannot find taxid:%d in the taxonomy dump files\n", iter->second.parent_taxid);
+				exit(1);
+			}
 			rankid = FindParentTaxidRank(iter->second.parent_taxid);
-			if (rankid > 0) iter->second.rank = rankid - 5; else iter->second.rank = 0;
+			if (rankid > 0) iter->second.rank = rankid - 5;
+			else iter->second.rank = 0;
 			//printf("%d: %d\n", iter->first, iter->second.rank);
 		}
 	}
-
-	map<int, TaxItem_t>::iterator iter;
 	fn = TaxonomyDir + "/merged.dmp"; file.clear(); file.open(fn.c_str(), ios_base::in); // tax_id, parent tax_id, rank
 	if (!file.is_open())
 	{
@@ -94,21 +99,57 @@ void GetTaxInfomation()
 
 int Pairwise_LCA(int taxid1, int taxid2)
 {
-	//printf("Find LCA for %d and %d\n", taxid1, taxid2);
+	map<int, TaxItem_t>::iterator iter1, iter2;
+
+	if ((iter1 = TaxMap.find(taxid1)) == TaxMap.end())
+	{
+		fprintf(stderr, "Cannot find taxid:%d in the taxonomy dump files\n", taxid1);
+		exit(1);
+	}
+	if ((iter2 = TaxMap.find(taxid2)) == TaxMap.end())
+	{
+		fprintf(stderr, "Cannot find taxid:%d in the taxonomy dump files\n", taxid2);
+		exit(1);
+	}
 	while (true)
 	{
-		while(TaxMap[taxid1].rank != TaxMap[taxid2].rank)
+		while (iter1->second.rank != iter2->second.rank)
 		{
-			while (TaxMap[taxid1].rank < TaxMap[taxid2].rank) taxid1 = TaxMap[taxid1].parent_taxid;
-			while (TaxMap[taxid2].rank < TaxMap[taxid1].rank) taxid2 = TaxMap[taxid2].parent_taxid;
+			while (iter1->second.rank < iter2->second.rank)
+			{
+				taxid1 = iter1->second.parent_taxid;
+				if ((iter1 = TaxMap.find(taxid1)) == TaxMap.end())
+				{
+					fprintf(stderr, "Cannot find taxid:%d in the taxonomy dump files\n", taxid1);
+					exit(1);
+				}
+			}
+			while (iter2->second.rank < iter1->second.rank)
+			{
+				taxid2 = iter2->second.parent_taxid;
+				if ((iter2 = TaxMap.find(taxid2)) == TaxMap.end())
+				{
+					fprintf(stderr, "Cannot find taxid:%d in the taxonomy dump files\n", taxid2);
+					exit(1);
+				}
+			}
 		}
-		if (taxid1 != taxid2)
+		if (iter1 != iter2)
 		{
-			taxid1 = TaxMap[taxid1].parent_taxid;
-			taxid2 = TaxMap[taxid2].parent_taxid;
+			taxid1 = iter1->second.parent_taxid;
+			if ((iter1 = TaxMap.find(taxid1)) == TaxMap.end())
+			{
+				fprintf(stderr, "Cannot find taxid:%d in the taxonomy dump files\n", taxid1);
+				exit(1);
+			}
+			taxid2 = iter2->second.parent_taxid;
+			if ((iter2 = TaxMap.find(taxid2)) == TaxMap.end())
+			{
+				fprintf(stderr, "Cannot find taxid:%d in the taxonomy dump files\n", taxid2);
+				exit(1);
+			}
 		}
 		else break;
-		//printf("\t%d vs %d\n", taxid1, taxid2);
 	}
 	//printf("LCA=%d\n\n", taxid1);
 	return taxid1;

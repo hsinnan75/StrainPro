@@ -40,6 +40,7 @@ void GetTaxInfomation()
 	fstream file;
 	TaxItem_t TaxItem;
 	string fn, str, tax, rank, tmp;
+	map<int, TaxItem_t>::iterator iter;
 	int p1, p2, rankid, taxid, parentid;
 
 	InitializeTaxRankMap();
@@ -64,17 +65,21 @@ void GetTaxInfomation()
 		TaxMap.insert(make_pair(taxid, TaxItem));
 	}
 	file.close();
-	for (map<int, TaxItem_t>::iterator iter = TaxMap.begin(); iter != TaxMap.end(); iter++)
+	for (iter = TaxMap.begin(); iter != TaxMap.end(); iter++)
 	{
 		if (iter->second.rank == 0)
 		{
+			if (TaxMap.find(iter->second.parent_taxid) == TaxMap.end())
+			{
+				fprintf(stderr, "\nError! Cannot find taxid:%d in the taxonomy dump files\n", iter->second.parent_taxid);
+				exit(1);
+			}
 			rankid = FindParentTaxidRank(iter->second.parent_taxid);
-			if (rankid > 0) iter->second.rank = rankid - 5; else iter->second.rank = 0;
+			if (rankid > 0) iter->second.rank = rankid - 5; 
+			else iter->second.rank = 0;
 			//printf("%d: %d\n", iter->first, iter->second.rank);
 		}
 	}
-
-	map<int, TaxItem_t>::iterator iter;
 	fn = TaxonomyDir + "/merged.dmp"; file.clear(); file.open(fn.c_str(), ios_base::in); // tax_id, parent tax_id, rank
 	if (!file.is_open())
 	{

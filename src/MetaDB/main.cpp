@@ -85,6 +85,12 @@ int64_t GetDBseq(const char* filename)
 			}
 			p1 += 6; p2 = str.find_first_of('|', p1); tax = str.substr(p1, p2 - p1); 
 			SeqInfo.taxid = atoi(tax.c_str());
+			if (TaxMap.find(SeqInfo.taxid) == TaxMap.end())
+			{
+				fprintf(stderr, "\nError! Cannot find taxid:%d in the taxonomy dump files!\n", SeqInfo.taxid);
+				fprintf(stderr, "\nPlease check your taxonomy dump files in %s!\n", TaxonomyDir.c_str());
+				exit(1);
+			}
 			SeqInfo.header = str.substr(1); SeqInfo.seq.clear();
 		}
 		else SeqInfo.seq += str;
