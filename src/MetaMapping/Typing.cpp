@@ -82,16 +82,17 @@ void TaxTreeTraversal()
 
 void CreateMappingReport()
 {
+	string tax_rank;
 	float conf, abundance;
 	FILE *OutputFileHandler;
 	int taxid, freq, size, depth, taxLevel;
 	map<int, TaxMappedInfo_t>::iterator iter;
 
 	OutputFileHandler = fopen(OutputFilename, "w");
-	fprintf(OutputFileHandler, "%-20s\t%-20s\t%-20s\t%-20s\t%-20s\n", "#TaxID", "#Read_count", "#Depth", "#Relative_abundance", "#Confidence_score");
+	fprintf(OutputFileHandler, "%-20s\t%-20s\t%-20s\t%-20s\t%-20s\t%-20s\n", "Rank", "TaxID", "Read_count", "Depth", "Relative_abundance", "Confidence_score");
 	for (taxLevel = 5; taxLevel <= 70;)
 	{
-		fprintf(OutputFileHandler, "@TaxRank:%s\n", ShowTaxRank(taxLevel).c_str());
+		tax_rank = ShowTaxRank(taxLevel).c_str();
 		for (iter = TaxMappedInfoMap.begin(); iter != TaxMappedInfoMap.end(); iter++)
 		{
 			if (iter->second.freq >= minFrequency && TaxMap[(taxid = iter->first)].rank == taxLevel)
@@ -102,7 +103,7 @@ void CreateMappingReport()
 				abundance = 100*(taxLevel == 5 ? (float)depth / TaxLevelFreqMap[taxLevel] : (float)freq / TaxLevelFreqMap[taxLevel]);
 				//if (conf > 0.5 || (freq >= minFrequency && depth >= minDepth)) fprintf(OutputFileHandler, "%-20d\t%-20d\t%-20d\t%-20f\n", taxid, freq, depth, conf); //taxid, frequency, est_depth, confidence_score
 				//if((taxLevel == 5 && freq >= minFrequency && depth >= minDepth) || (taxLevel >= 10 && freq >= 1000 && conf > 0.01))
-				fprintf(OutputFileHandler, "%-20d\t%-20d\t%-20d\t%-20.2f\t%-20f\n", taxid, freq, depth, abundance, conf);
+				fprintf(OutputFileHandler, "%-20s\t%-20d\t%-20d\t%-20d\t%-20.2f\t%-20f\n", tax_rank.c_str(), taxid, freq, depth, abundance, conf);
 			}
 		}
 		if (taxLevel == 5) taxLevel = 10;
