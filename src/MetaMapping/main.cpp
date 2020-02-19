@@ -130,7 +130,7 @@ int main(int argc, char* argv[], char* envp[])
 	FastQFormat = true;
 	RefSequence = NULL;
 	minFrequency = 50;
-	OutputFilename = (char*)"output.res";
+	OutputFilename = (char*)"output.tsv";
 
 	ParseEnvSetting(envp);
 
